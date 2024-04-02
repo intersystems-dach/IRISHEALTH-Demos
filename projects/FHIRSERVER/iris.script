@@ -1,0 +1,32 @@
+ // Create a HS enabled namespace with foundation production
+ zn "HSLIB"
+ set tSC=##class(HS.Util.Installer.Foundation).Install("FHIRSERVER",.pVars)
+
+ zn "FHIRSERVER"
+
+ Set appKey = "/fhir/r5"
+ Set strategyClass = "HS.FHIRServer.Storage.JsonAdvSQL.InteractionsStrategy"
+ Set metadataPackages = $lb("hl7.fhir.r5.core@5.0.0")
+
+ // Install elements that are required for a FHIR-enabled namespace
+ Do ##class(HS.FHIRServer.Installer).InstallNamespace("FHIRSERVER")
+
+ // Install an instance of a FHIR Service into the current namespace
+ Do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, strategyClass, metadataPackages)
+
+ do $System.OBJ.LoadDir("<#PROJECTDIR#>/src","ck",,1)
+ do ##class(Ens.Director).SetAutoStart("Demo.FHIR.AppointmentNotification.Interop.Production",1)
+ set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.FHIR.AppointmentNotification.Interop.Production"‚
+
+ //Get FHIR server's configuration object
+ Set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
+ Set configData = strategy.GetServiceConfigData()
+ Set jsonConfigData = configData.AsJSONString()
+
+ // Define additional settings
+ Set enabled = 1
+ Set serviceConfigName = "FHIR Endpoint"
+ Set oAuthClient = ""
+ 
+ // Update FHIR Server
+ Do ##class(HS.FHIRServer.Installer).UpdateInstance(appKey, jsonConfigData, enabled, serviceConfigName, oAuthClient)

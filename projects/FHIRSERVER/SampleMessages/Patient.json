@@ -1,0 +1,40 @@
+{
+    "resourceType": "Patient",
+    "id": "101",
+    "name": [
+      {
+        "use": "official",
+        "family": "Chalmers",
+        "given": [
+          "Peter", 
+          "James"
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "value": "(03) 3410 5613",
+        "use": "mobile"
+      },
+      {
+        "system" : "email",
+        "value" : "mail@example.org"
+      }
+    ],
+    "gender": "male",
+    "birthDate": "1962-06-02",
+    "deceasedBoolean": false,
+    "address": [
+      {
+        "use": "home",
+        "line": [
+          "Some Street 1"
+        ],
+        "city": "Somewhere",
+        "state": "CH",
+        "postalCode": "00000"
+      }
+    ]
+  }
+  
