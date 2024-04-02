@@ -1,0 +1,30 @@
+ // Create a HS enabled namespace with foundation production
+ zn "HSLIB"
+ set tSC=##class(HS.Util.Installer.Foundation).Install("COMSERVER",.pVars)
+
+ zn "COMSERVER"
+
+ do $System.OBJ.Load("<#PROJECTDIR#>/GenderTranslation.xml")
+ write ##class(%File).CreateDirectory("/home/irisowner/hl7", .return)
+ write return
+ write ##class(%File).CreateDirectory("/home/irisowner/hl7/in", .return)
+ write return
+ write ##class(%File).CreateDirectory("/home/irisowner/hl7/out", .return)
+ write return
+ write ##class(%File).CreateDirectory("/home/irisowner/hl7/archive", .return)
+ write return
+
+ write ##class(Ens.Config.Credentials).SetCredential("FHIR_CREDS", "SuperUser", "SYS123")
+
+ set serviceReg = ##class(HS.Registry.Service.HTTP).%New()
+ set serviceReg.Name = "FHIR Repo"
+ set serviceReg.Host = "localhost"
+ set serviceReg.Port = 52773
+ set serviceReg.HTTPCredentialsConfig = "FHIR_CREDS"
+ set serviceReg.URL = "/fhir/r4"
+ set serviceReg.Type = "HTTP"
+ write serviceReg.%Save()
+
+ do $System.OBJ.LoadDir("<#PROJECTDIR#>/src","ck",,1)
+ do ##class(Ens.Director).SetAutoStart("Demo.ComServer.Production",1)
+ set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.ComServer.Production"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2022.3 (Build 606U)" ts="2024-04-02 13:50:13">
+<Document name="GenderTranslation.LUT">
+<lookupTable>
+<entry table="GenderTranslation" key="D">3</entry>
+<entry table="GenderTranslation" key="M">1</entry>
+<entry table="GenderTranslation" key="U">4</entry>
+<entry table="GenderTranslation" key="W">2</entry>
+<entry table="GenderTranslation" key="d">3</entry>
+<entry table="GenderTranslation" key="m">1</entry>
+<entry table="GenderTranslation" key="u">4</entry>
+<entry table="GenderTranslation" key="w">2</entry>
+</lookupTable>
+</Document></Export>

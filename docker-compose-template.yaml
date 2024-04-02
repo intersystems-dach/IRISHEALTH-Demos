@@ -6,6 +6,10 @@ services:
     ports:
     # the webserver port
     - "<WEBSERVER_PORT>:52773"
+    # HL7 TCP port
+    - 8004:44444
+    # SSH
+    - 8003:22
 
     ### Mount durable volume ###
     # volumes:
