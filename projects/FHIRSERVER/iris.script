@@ -4,9 +4,9 @@
 
  zn "FHIRSERVER"
 
- Set appKey = "/fhir/r5"
+ Set appKey = "/fhir/r4"
  Set strategyClass = "HS.FHIRServer.Storage.JsonAdvSQL.InteractionsStrategy"
- Set metadataPackages = $lb("hl7.fhir.r5.core@5.0.0")
+ Set metadataPackages = $lb("hl7.fhir.r4.core@4.0.1")
 
  // Install elements that are required for a FHIR-enabled namespace
  Do ##class(HS.FHIRServer.Installer).InstallNamespace("FHIRSERVER")
@@ -16,7 +16,7 @@
 
  do $System.OBJ.LoadDir("<#PROJECTDIR#>/src","ck",,1)
  do ##class(Ens.Director).SetAutoStart("Demo.FHIR.AppointmentNotification.Interop.Production",1)
- set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.FHIR.AppointmentNotification.Interop.Production"‚
+ set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.FHIR.AppointmentNotification.Interop.Production"
 
  //Get FHIR server's configuration object
  Set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
