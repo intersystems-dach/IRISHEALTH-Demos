@@ -1,5 +1,11 @@
+/// 
 Class Demo.FHIR.AppointmentNotification.Interop.NotificationProcess Extends Ens.BusinessProcessBPL
 {
+
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
 
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
@@ -50,12 +56,12 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <call name='Get Patient' target='FHIR Storage' async='0' xpos='200' ypos='350' >
 <annotation><![CDATA[Get Patient info from FHIR repository]]></annotation>
 <request type='HS.FHIRServer.Interop.Request' >
-<assign property="callrequest.Request.SessionApplication" value="request.Request.SessionApplication" action="set" />
-<assign property="callrequest.Request.RequestMethod" value="&quot;GET&quot;" action="set" />
-<assign property="callrequest.Request.RequestPath" value="context.PatientID" action="set" />
+<assign property="callrequest.Request.SessionApplication" value="request.Request.SessionApplication" action="set" languageOverride="" />
+<assign property="callrequest.Request.RequestMethod" value="&quot;GET&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Request.RequestPath" value="context.PatientID" action="set" languageOverride="" />
 </request>
 <response type='HS.FHIRServer.Interop.Response' >
-<assign property="context.PatientFHIRResponse" value="callresponse" action="set" />
+<assign property="context.PatientFHIRResponse" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
 <code name='Patient Info' xpos='200' ypos='450' >
@@ -80,10 +86,10 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <call name='Create or update App.' target='FHIR Storage' async='0' xpos='200' ypos='550' >
 <annotation><![CDATA[Send Apppointment request to FHIR repository]]></annotation>
 <request type='HS.FHIRServer.Interop.Request' >
-<assign property="callrequest" value="request" action="set" />
+<assign property="callrequest" value="request" action="set" languageOverride="" />
 </request>
 <response type='HS.FHIRServer.Interop.Response' >
-<assign property="response" value="callresponse" action="set" />
+<assign property="response" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
 <if name='Is Update?' condition='response.Response.Status="200"' xpos='200' ypos='650' xend='200' yend='1600' >
@@ -93,8 +99,8 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <true>
 <call name='Send SMS Notication' target='SMS Notification' async='1' xpos='470' ypos='1050' >
 <request type='Demo.FHIR.AppointmentNotification.Interop.SMSRequest' >
-<assign property="callrequest.MobilePhone" value="context.PatientMobile" action="set" />
-<assign property="callrequest.Message" value="&quot;Ihr Termin im USZ wurde verschoben: &quot;_context.AppointmentStart" action="set" />
+<assign property="callrequest.MobilePhone" value="context.PatientMobile" action="set" languageOverride="" />
+<assign property="callrequest.Message" value="&quot;Ihr Termin wurde verschoben: &quot;_context.AppointmentStart" action="set" languageOverride="" />
 </request>
 </call>
 </true>
@@ -103,9 +109,9 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <true>
 <call name='Send Email Notification' target='E-Mail Notification' async='1' xpos='470' ypos='1400' >
 <request type='Demo.FHIR.AppointmentNotification.Interop.EmailRequest' >
-<assign property="callrequest.EmailAddress" value="context.PatientEmail" action="set" />
-<assign property="callrequest.Subject" value="&quot;Terminverschiebung USZ&quot;" action="set" />
-<assign property="callrequest.Message" value="&quot;Ihr Termin im USZ wurde verschoben: &quot;_context.AppointmentStart" action="set" />
+<assign property="callrequest.EmailAddress" value="context.PatientEmail" action="set" languageOverride="" />
+<assign property="callrequest.Subject" value="&quot;Terminverschiebung&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Message" value="&quot;Ihr Termin wurde verschoben: &quot;_context.AppointmentStart" action="set" languageOverride="" />
 </request>
 </call>
 </true>
@@ -114,11 +120,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </if>
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }
