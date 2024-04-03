@@ -1,13 +1,11 @@
 ### VisualStudioCode ###
-.vscode/**/*
+**/.vscode/**/*
 *.code-workspace
 
 # Files build from template by setup.sh
 
-Dockerfile
-docker-compose.yaml
-docker-compose.build.yaml
 docker_volume/*
+password.txt
 
 # Key files
 
