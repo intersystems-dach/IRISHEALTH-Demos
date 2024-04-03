@@ -1,0 +1,92 @@
+{
+    "contained": [
+        {
+            "resourceType": "Device",
+            "id": "1",
+            "identifier": [
+                {
+                    "value": "900000000000011"
+                }
+            ],
+            "deviceName": [
+                {
+                    "name": "LS802-GP",
+                    "type": "udi-label-name"
+                }
+            ]
+        }
+    ],
+    "id": "1",
+    "resourceType": "Observation",
+    "status": "final",
+    "category": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                    "code": "vital-signs",
+                    "display": "Vital Signs"
+                }
+            ]
+        }
+    ],
+    "code": {
+        "coding": [
+            {
+                "system": "http://loinc.org",
+                "code": "55284-4",
+                "display": "Blood pressure systolic and diastolic"
+            }
+        ],
+        "text": "Blood pressure systolic and diastolic"
+    },
+    "effectiveDateTime": "2023-03-23T17:21:46.736308785Z",
+    "device": {
+        "reference": "#1"
+    },
+    "component": [
+        {
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "8480-6",
+                        "display": "Systolic blood pressure"
+                    }
+                ]
+            },
+            "valueQuantity": {
+                "value": 130,
+                "unit": "mmHg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]"
+            }
+        },
+        {
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "8462-4",
+                        "display": "Diastolic blood pressure"
+                    }
+                ]
+            },
+            "valueQuantity": {
+                "value": 94,
+                "unit": "mmHg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]"
+            }
+        }
+    ],
+    "note": [
+        {
+            "text": "irregularHeartBeat:false"
+        }
+    ],
+    "meta": {
+        "lastUpdated": "2023-03-23T17:21:47Z",
+        "versionId": "1"
+    }
+}

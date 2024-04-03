@@ -1,0 +1,21 @@
+ // Create a HS enabled namespace with foundation production
+ zn "HSLIB"
+ set tSC=##class(HS.Util.Installer.Foundation).Install("FHIRFACADE",.pVars)
+
+ // Create Web Application
+ zn "%SYS"
+ set props("Description") = "FHIR Observation Facade"
+ set props("DispatchClass") = "Demo.FHIRFacade.REST.Dispatcher"
+ set props("NameSpace") = "FHIRFACADE"
+ set props("MatchRoles") = ":%DB_FHIRFACADE"
+ write ##class(Security.Applications).Create("/fhirfacade", .props)
+
+
+ zn "FHIRFACADE"
+
+ do $System.OBJ.LoadDir("<#PROJECTDIR#>/src","ck",,1)
+ do ##class(Ens.Director).SetAutoStart("Demo.FHIRServer.FoundationProduction",1)
+ set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.FHIRServer.FoundationProduction"
+
+
+ 
