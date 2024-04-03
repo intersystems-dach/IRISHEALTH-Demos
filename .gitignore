@@ -6,6 +6,7 @@
 
 docker_volume/*
 password.txt
+**/*.tgz
 
 # Key files
 

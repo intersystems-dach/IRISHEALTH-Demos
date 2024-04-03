@@ -1,15 +1,13 @@
 services: 
   irishealth-demo:
     build: .
-    image: irishealth-demo:latest
+    image: irishealth-demo:1.0
     container_name: irishealth-demo
     ports:
     # the webserver port
     - "8002:52773"
     # HL7 TCP port
     - 8004:44444
-    # SSH
-    - 8003:22
 
     ### Mount durable volume ###
     # volumes:

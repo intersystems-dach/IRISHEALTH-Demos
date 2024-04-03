@@ -18,7 +18,7 @@ CONTAINER_NAME="irishealth-demo"
 IMAGE_NAME=$CONTAINER_NAME
 
 # Docker Image tag
-IMAGE_TAG="latest"
+IMAGE_TAG="1.0"
 
 # Optional: Set password for default IRIS users
 IRIS_PW="SYS123"
