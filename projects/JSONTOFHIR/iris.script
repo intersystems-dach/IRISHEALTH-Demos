@@ -1,0 +1,24 @@
+ // Create a HS enabled namespace with foundation production
+ zn "HSLIB"
+ set tSC=##class(HS.Util.Installer.Foundation).Install("JSONTOFHIR",.pVars)
+
+ // Create Web Application
+ zn "%SYS"
+ set props("Description") = "Test Data Provider REST Service"
+ set props("DispatchClass") = "Demo.JSONtoFHIR.REST.Dispatcher"
+ set props("NameSpace") = "JSONTOFHIR"
+ set props("MatchRoles") = ":%DB_JSONTOFHIR"
+ write ##class(Security.Applications).Create("/demo", .props)
+
+
+
+ zn "JSONTOFHIR"
+
+ write ##class(Ens.Config.Credentials).SetCredential("AppSecret", "8BfaNUt0J3dzPd47Zeym4XGTF4cXGgdw", "JmuFsTZtfNt12")
+ 
+ write ##class(%File).CreateDirectory("/home/irisowner/output", .return)
+ write return
+
+ do $System.OBJ.LoadDir("<#PROJECTDIR#>/src","ck",,1)
+ do ##class(Ens.Director).SetAutoStart("Demo.JSONtoFHIR.FoundationProduction",1)
+ set ^EnsPortal.Settings("SuperUser","LastProduction")	= "Demo.JSONtoFHIR.FoundationProduction"
