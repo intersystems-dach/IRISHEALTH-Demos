@@ -11,6 +11,9 @@ IRIS_DOCKER_IMAGE="intersystems/irishealth-community:2024.1"
 # Webserver port
 WEBSERVER_PORT="8002"
 
+# Superserver port
+SUPERSERVER_PORT="8001"
+
 # Container name (Make sure the name is not in use)
 CONTAINER_NAME="irishealth-demo" 
 

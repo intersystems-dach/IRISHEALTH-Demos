@@ -6,6 +6,9 @@ services:
     ports:
     # the webserver port
     - "8002:52773"
+
+    # Superserver port
+    - 8001:1927
     # HL7 TCP port
     - 8004:44444
 
