@@ -1,16 +1,26 @@
-# IRIS For Health Demo
+# InterSystems IRIS Docker Demo Builder
 
-InterSystems IRIS for Health Demos in a Docker container.
+This is a template project to create InterSystems IRIS docker demos. It supports InterSystems IRIS and IRIS for Health, both the Standard and the Community Edition. The web gateway will always have SSL enabled, the setup script can generate a self-signed certiificate or obtain a valid certificate via Let's Encrypt. Persistent volumes will be mounted from `./volumes/iris` to `<iris-container>:/iris-shared` and `./volumes/webgateway` to `<webgateway-container>:/webgateway-shared`. `Durable %SYS`is not used by default and must be added manually to `docker-compose.yaml`. This template include two sample projects. Have a look at `./projects` for details.
 
-## Build
+## Running a demo project
 
-Run `./setup.sh` to create and start the docker container containing the demos.
+1. Clone repository
+2. Log in to the InterSystems container repository if required.
+3. Edit `.env`
+4. Run `./setup.sh`
 
-## Usage
+On a Windows machine use `WSL` oder `git bash`. If you want to use Let's encrypt certificates make sure to configre a publicly resolvable FQDN as `WEBGATEWAY_HOSTNAME` and that port 80 is accessible from the Internet. Let's encrypt is only supported on a Linux (and probably WSL2) machine that has snapd installed. 
 
-Open [http://localhost:8002/csp/sys/UtilHome.csp](http://localhost:8002/csp/sys/UtilHome.csp). Login as SuperUser (password: "SYS123"). The demo includes the following demos:
+## InterSystems container repository login
 
-- FHIRSERVER Demo: Uses the InterSystems FHIR Server and Interoperability to implement a use-case where a patient gets notfied if their appointment is changed. Appointment changes are triggered via FHIR Put messages. Make sure to use PUT instead of POST for the FHIR sample requests. The sample Patient-ID is 101 and the sample Appointment-ID is 501.
-- COMSERVER Demo: Uses InterSystems Interoperability to demonstrate HL7 routing from a CIS to a lab and kitchen system, as well as integrated conversion from HL7 to FHIR via SDA3 (requires the FHIRSERVER demo, otherwise the FHIR-HTTP-Operation will not work).
-- JSONTOFHIR Demo: Converts proprietary JSON data to FHIR bundle by using InterSystems Interoperability, BPLs and DTLs. The demo is executed via the built-in test function in the Production. Invoke a TestRequest in "Get JSON File and Convert to Object" Business Service. The schema is generated during the first execution; the actual conversion takes place from the second execution onwards.
-- FHIRFACADE: A FHIR Observation (blood pressure, e.g. from a smart device) is received via REST (endoint: `/fhirdacade/Observation`), converted to a proprietary format and stored in a SQL databse.
+If you are using InterSystems container registry images, you must log in to the InterSystems container repository before running `setup.sh`. Go to [containers.intersystems.com](https://containers.intersystems.com), log in, get your Docker login command and run it in a terminal on your local machine. It should look like this:
+
+```bash
+docker login -u="user" -p="xyz123..." containers.intersystems.com
+```
+
+## Creating a demo project
+
+Clone the template project to your local machine. Edit the configuration in `.env` according to your requirements. Create a new folder in `./projects` which will contain your project files. Inside this folder, create a new script called `iris.script`. This file must contains objectscript commands and will be called during the Docker build process (make sure to start each line with at least one whitespace character). It is used to import, compile and configure your project. Take a look at the example projects `projects/INTEROP_DEMO` and `projects/COMSRV_DEMO`. Those should be removed before creating your docker container. Alternatively, you can rename the `iris.script` in the demo folders to e.g. `iris.script.old`.
+
+

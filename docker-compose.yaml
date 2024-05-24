@@ -1,26 +1,31 @@
-services: 
-  irishealth-demo:
-    build: .
-    image: irishealth-demo:1.0
-    container_name: irishealth-demo
+services:
+  iris:
+    build:
+      context: .
+      args:
+        IRIS_IMAGE: "${IRIS_IMAGE}"
+        IRIS_TAG: "${IRIS_IMAGE_TAG}"
+        IRIS_PW: "${IRIS_PW}"
+    image: ${OUTPUT_IMAGE_NAME}:${OUTPUT_IMAGE_TAG}
+    container_name: ${CONTAINER_NAME}
     ports:
-    # the webserver port
-    - "8002:52773"
-
-    # Superserver port
-    - 8001:1927
     # HL7 TCP port
     - 8004:44444
+    volumes:
+    - ./volumes/iris:/iris-shared
+    command: 
+    - "${LICENSE_KEY_PATTERN:+--key /iris-shared/license/iris.key}"
 
-    ### Mount durable volume ###
-    # volumes:
-    # - ./data/durable:/durable
-
-    ### Enable durable SYS (requires durable volume) ###
-    # environment:
-    # - ISC_DATA_DIRECTORY=/durable/iris_conf.d
-
-    ### Password & License (requires durable volume) ###
-    #command:  --key /durable/iris.key --password-file /durable/password.txt
-
+  webgateway:
+    image: containers.intersystems.com/intersystems/webgateway:${IRIS_IMAGE_TAG}
+    hostname: ${WEBGATEWAY_HOSTNAME}
+    container_name: ${CONTAINER_NAME}-wg
+    ports:
+    - "${WEBSERVER_PORT}:80"
+    - "${WEBSERVER_PORT_HTTPS}:443"
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - ./volumes/webgateway:/webgateway-shared
 

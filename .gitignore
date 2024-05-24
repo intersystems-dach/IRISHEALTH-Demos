@@ -1,16 +1,11 @@
 ### VisualStudioCode ###
-**/.vscode/**/*
+.vscode/*
 *.code-workspace
 
-# Files build from template by setup.sh
-
-docker_volume/*
-password.txt
-**/*.tgz
-
-# Key files
-
+# Project files
+volumes/*
 **/*.key
+**/*.tgz
 
 # OS files
 .DS_Store
