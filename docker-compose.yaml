@@ -15,6 +15,7 @@ services:
     - ./volumes/iris:/iris-shared
     command: 
     - "${LICENSE_KEY_PATTERN:+--key /iris-shared/license/iris.key}"
+    restart: ${RESTART_POLICY}
 
   webgateway:
     image: containers.intersystems.com/intersystems/webgateway:${IRIS_IMAGE_TAG}
@@ -28,4 +29,5 @@ services:
     - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
     volumes:
     - ./volumes/webgateway:/webgateway-shared
+    restart: ${RESTART_POLICY}
 
