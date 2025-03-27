@@ -11,7 +11,7 @@ services:
     container_name: ${CONTAINER_NAME}
     ports:
     # HL7 TCP port
-    - 8004:44444
+    - ${HL7_TCP_PORT}:44444
     volumes:
     - ./volumes/iris:/iris-shared
     command: 
