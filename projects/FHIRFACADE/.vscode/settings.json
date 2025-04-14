@@ -1,6 +1,6 @@
 {
     "objectscript.conn": {
-        "server": "iris-localhost-8002",
+        "server": "iris-localhost-8080",
         "ns": "FHIRFACADE",
         "active": true
     }
